@@ -9,10 +9,8 @@ public class MusicObject {
     private int mDuracion;
     private Uri ubicacion;
 
-    public MusicObject(String nombre, Uri ubicacion) {
+    public MusicObject(String nombre) {
         this.nombre = nombre;
-        //this.mDuracion = mDuracion;
-        this.ubicacion = ubicacion;
     }
 
     public String getNombre() {

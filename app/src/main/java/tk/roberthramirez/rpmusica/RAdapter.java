@@ -8,11 +8,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 public class RAdapter extends RecyclerView.Adapter<RAdapter.MusicaViewHolder> {
-    private MusicObject[] musicList;
+    private ArrayList<MusicObject> musicList;
     private IMusicaListener listener;
 
-    public RAdapter(MusicObject[] musicList, IMusicaListener listener) {
+    public RAdapter(ArrayList<MusicObject> musicList, IMusicaListener listener) {
         this.musicList = musicList;
         this.listener = listener;
     }
@@ -26,13 +28,13 @@ public class RAdapter extends RecyclerView.Adapter<RAdapter.MusicaViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MusicaViewHolder holder, int position) {
-        MusicObject music = musicList[position];
+        MusicObject music = musicList.get(position);
         holder.bindMusica(music);
     }
 
     @Override
     public int getItemCount() {
-        return musicList.length;
+        return musicList.size();
     }
 
     public class MusicaViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{

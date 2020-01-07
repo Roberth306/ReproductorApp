@@ -166,6 +166,10 @@ public class PlayerService extends Service implements MediaPlayer.OnPreparedList
         return mediaPlayer.getDuration();
     }
 
+    public boolean isPlaying(){
+        return mediaPlayer.isPlaying();
+    }
+
     public void cambioTiempo(int tiempo) {
         mediaPlayer.seekTo(tiempo);
     }
