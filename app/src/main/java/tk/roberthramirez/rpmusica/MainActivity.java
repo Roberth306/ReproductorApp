@@ -43,22 +43,27 @@ public class MainActivity extends AppCompatActivity implements IMusicaListener, 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Inicializamos los archivos de musica de la carpeta raw
+        inicializarRawResources();
+
         //Inicializos el recycler viwer
 
-        inicializarRawResources();
         rvMusica = findViewById(R.id.rvMusica);
         rvMusica.setAdapter(new RAdapter(musicObjects, this));
         rvMusica.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
+        //inicializamos botones y la seekBar
         atras = findViewById(R.id.bAnterior);
         stopPlay = findViewById(R.id.bPlayPause);
         siguiente = findViewById(R.id.bSiguiente);
         seekBar = findViewById(R.id.sbProgress);
 
+        //Implementamos el OnClickListener de los botones
         atras.setOnClickListener(this);
         stopPlay.setOnClickListener(this);
         siguiente.setOnClickListener(this);
 
+        //Listener para cuando el usuario desplaze la seek bar
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -76,7 +81,9 @@ public class MainActivity extends AppCompatActivity implements IMusicaListener, 
             }
         });
 
-        /*executor = Executors.newSingleThreadScheduledExecutor();
+        //executor que no arranca el runnable, no tengo idea que hay mal en el executor
+
+        executor = Executors.newSingleThreadScheduledExecutor();
 
         executor.scheduleAtFixedRate(new Runnable() {
             @Override
@@ -84,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements IMusicaListener, 
                 Toast.makeText(getApplicationContext(), "a"+seekBar.getMax(), Toast.LENGTH_SHORT).show();
                 Log.i("executor", "bbbbbbbbbbbbbb");
             }
-        }, 0, 1000, TimeUnit.MILLISECONDS);*/
+        }, 0, 1000, TimeUnit.MILLISECONDS);
 
 
     }
@@ -93,6 +100,7 @@ public class MainActivity extends AppCompatActivity implements IMusicaListener, 
     protected void onStart() {
         super.onStart();
 
+        //Cremos el service y hacemos blind sobre el
         Intent intent = new Intent(this, PlayerService.class);
         //todo iniciar servicio para que no acabe
         startService(intent);
@@ -201,5 +209,5 @@ public class MainActivity extends AppCompatActivity implements IMusicaListener, 
         super.onDestroy();
         unbindService(connection);
     }
-    
+
 }
